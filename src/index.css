@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.awesome-card {
+  background: linear-gradient(315deg, #d5d5d5, #fefefe);
+  box-shadow: -27px -27px 53px #c9c9c9, 27px 27px 53px #ffffff;
+}
