@@ -4,7 +4,7 @@ import axios from 'axios';
 import CharacterReducer from './CharacterReducer';
 import CharacterContext from './CharacterContext';
 
-import { GET_ALL_CHARACTERS, GET_CHARACTER } from '../types';
+import { GET_ALL_CHARACTERS, GET_CHARACTER, GET_PAGE } from '../types';
 
 const URL = 'https://rickandmortyapi.com/api/character';
 
@@ -18,8 +18,7 @@ const CharacterState = ({ children }) => {
   const getCharacters = async () => {
     try {
       const res = await axios.get(URL);
-      console.log(res);
-      const data = res.data.results;
+      const data = res.data;
       console.log(data);
       dispatch({ type: GET_ALL_CHARACTERS, payload: data });
     } catch (error) {
@@ -36,13 +35,24 @@ const CharacterState = ({ children }) => {
       console.error(error);
     }
   };
+  const getPage = async (page) => {
+    try {
+      const res = await axios.get(URL + `/?page=${page}`);
+      const { data } = res;
+      dispatch({ type: GET_PAGE, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <CharacterContext.Provider
       value={{
         characters: state.characters,
         selectCharacter: state.selectCharacter,
         getCharacters,
-        getCharacter
+        getCharacter,
+        getPage
       }}
     >
       {children}

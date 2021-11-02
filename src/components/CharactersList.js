@@ -1,20 +1,30 @@
 import React, { useEffect, useContext } from 'react';
 import CharacterContext from '../context/Character/CharacterContext';
 import Character from './CharacterCard';
-
+import { Pagination } from './Pagination';
 const CharactersList = () => {
-  const { characters, getCharacters } = useContext(CharacterContext);
+  const { characters, getPage } = useContext(CharacterContext);
+  const chars = characters.results;
+
   useEffect(() => {
-    getCharacters();
+    getPage(1);
   }, []);
 
   return (
-    <section className='container px-5 py-24 mx-auto text-gray-600 body-font'>
+    <section
+      id='section1'
+      className='container px-5 py-24 mx-auto text-gray-600 body-font'
+    >
+      <div>
+        <li>{}</li>
+      </div>
+
       <div className='flex flex-wrap justify-center -m-4'>
-        {characters.map((char) => (
+        {chars?.map((char) => (
           <Character character={char} key={char.id} />
         ))}
       </div>
+      <Pagination />
     </section>
   );
 };
