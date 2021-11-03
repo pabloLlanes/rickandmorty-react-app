@@ -1,4 +1,10 @@
-import { GET_ALL_CHARACTERS, GET_CHARACTER, GET_PAGE } from '../types';
+import {
+  GET_ALL_CHARACTERS,
+  GET_CHARACTER,
+  GET_PAGE,
+  SEARCH,
+  SEARCH_ERROR
+} from '../types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
@@ -19,6 +25,16 @@ export default (state, action) => {
       return {
         ...state,
         characters: payload
+      };
+    case SEARCH:
+      return {
+        ...state,
+        characters: payload
+      };
+    case SEARCH_ERROR:
+      return {
+        ...state,
+        error: payload
       };
     default:
       return state;

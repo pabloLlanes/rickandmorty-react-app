@@ -2,12 +2,14 @@ import React, { useEffect, useContext } from 'react';
 import CharacterContext from '../context/Character/CharacterContext';
 import Character from './CharacterCard';
 import { Pagination } from './Pagination';
+import Search from './Search';
 const CharactersList = () => {
   const { characters, getPage } = useContext(CharacterContext);
   const chars = characters.results;
 
   useEffect(() => {
     getPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -16,7 +18,7 @@ const CharactersList = () => {
       className='container px-5 py-24 mx-auto text-gray-600 body-font'
     >
       <div>
-        <li>{}</li>
+        <Search />
       </div>
 
       <div className='flex flex-wrap justify-center -m-4'>
