@@ -1,6 +1,16 @@
 /* eslint-disable */
 
+import { ThemeContext } from "../context/ThemeContext";
+import React, { useContext } from 'react';
+
 function Especie(props) {
+
+    const settings = useContext(ThemeContext);
+
+    console.log('EL TEMA DEL CONTEXTO:   ', settings);
+
+
+
 
     const { especie } = props;
 

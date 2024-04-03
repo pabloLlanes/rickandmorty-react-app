@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListadoPersonajes from "../componentes/ListadoPersonajes";
 import axios from "axios";
 import Loader from "../componentes/Loader";
+import Search from "../componentes/Search";
 
 function Personajes() {
 
@@ -9,9 +10,11 @@ function Personajes() {
 
     const [infoStore, setInfoStore] = useState([])
 
-    const [page, setPage] = useState(5)
+    const [page, setPage] = useState(1)
 
     const [isLoading, setIsLoading] = useState(false)
+
+    const [query, setQuery] = useState('')
 
     const seguientePagina = () => {
 
@@ -28,9 +31,9 @@ function Personajes() {
     }
 
     const getPersonajesFetch = async () => {
-        const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
+        const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${query}`);
         const data = await response.json();
-
+        console.log(data);
         setPersonajesStore(data.results)
         setInfoStore(data.info)
     }
@@ -44,22 +47,36 @@ function Personajes() {
             setPersonajesStore(response.data.results)
             setInfoStore(response.data.info)
             setIsLoading(false)
-        }, 1000);
+        }, 1000); //1000ms ---> 1s 
     }
 
 
     useEffect(() => {
-        getPersonajesAxios()
-    }, [page])
+        getPersonajesFetch()
+    }, [query])
+
+
+
+    /*     useEffect(() => {
+            getPersonajesAxios()
+        }, [page]) */
+
+
+    console.log(query)
 
     return (
 
         <div>
             <h1>Personajes</h1>
 
+            <Search fnSearch={setQuery} />
+
             <h4>Cantidad de personajes: {infoStore.count} </h4>
             <h4>Cantidad de paginas: {infoStore.pages} </h4>
             <h4>Página Nro: {page} </h4>
+
+
+
 
             <button
                 onClick={anteriorPagina}>
